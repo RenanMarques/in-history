@@ -1,10 +1,10 @@
-package com.renangmarques.abraham;
+package com.renangmarques.inhistory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AbrahamApplicationTests {
+class InHistoryApplicationTests {
 
 	@Test
 	void contextLoads() {
