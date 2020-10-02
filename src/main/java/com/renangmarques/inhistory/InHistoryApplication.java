@@ -1,12 +1,10 @@
 package com.renangmarques.inhistory;
 
-import com.renangmarques.inhistory.model.Movie;
-import com.renangmarques.inhistory.model.Person;
-import com.renangmarques.inhistory.model.Reference;
-import com.renangmarques.inhistory.repository.MovieRepository;
-import com.renangmarques.inhistory.repository.PersonRepository;
+import com.google.common.collect.Maps;
+import com.renangmarques.inhistory.model.*;
 import com.renangmarques.inhistory.repository.ReferenceRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.neo4j.ogm.session.Session;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,28 +24,55 @@ public class InHistoryApplication {
 	}
 
 	@Bean
-	CommandLineRunner initDatabase(ReferenceRepository referenceRepository, MovieRepository movieRepository,
-								   PersonRepository personRepository) {
+	CommandLineRunner initDatabase(Session session, ReferenceRepository referenceRepository) {
 		return args -> {
 			log.debug("Initializing data for application");
 
 			log.debug("Removing all data");
-			referenceRepository.deleteAll();
-			movieRepository.deleteAll();
-			personRepository.deleteAll();
+			session.query("MATCH (n)DETACH DELETE n", Maps.newHashMap());
 			log.debug("All data removed");
 
 			log.debug("Inserting new data");
 
-			Person williamWallace = new Person().withName("William Wallace");
+			// Scotland history references
 
-			Movie braveheart = new Movie().withTitle("Braveheart");
-			Movie outlawKing = new Movie().withTitle("Outlaw King");
+			Referenced williamWallace = new Person().withName("William Wallace");
+			Referenced robertTheBruce = new Person().withName("Robert the Bruce");
 
-			Reference williamWallaceInBraveheart = new Reference().withPerson(williamWallace).withMovie(braveheart);
-			Reference williamWallaceInOutlawKing = new Reference().withPerson(williamWallace).withMovie(outlawKing);
-			List<Reference> references = List.of(williamWallaceInBraveheart, williamWallaceInOutlawKing);
+			Referencer braveheart = new Movie().withTitle("Braveheart");
+			Referencer outlawKing = new Movie().withTitle("Outlaw King");
+			Referencer robertTheBruceMovie = new Movie().withTitle("Robert the Bruce");
 
+			Reference williamWallaceInBraveheart = new Reference().withReferenced(williamWallace).withReferencer(braveheart);
+			Reference williamWallaceInOutlawKing = new Reference().withReferenced(williamWallace).withReferencer(outlawKing);
+			Reference robertTheBruceInRobertTheBruce = new Reference().withReferenced(robertTheBruce)
+					.withReferencer(robertTheBruceMovie);
+			Reference robertTheBruceInOutlawKing = new Reference().withReferenced(robertTheBruce).withReferencer(outlawKing);
+
+			// World War II references
+			Referenced eugeneSledge = new Person().withName("Eugene Sledge");
+			Referenced robertLeckie = new Person().withName("Robert Leckie");
+			Referenced austinShofner = new Person().withName("Austin Shofner");
+			Referenced vernonMicheel = new Person().withName("Vernon Micheel");
+
+			Referencer thePacific = new Serie().withTitle("The Pacific");
+
+			Reference eugeneSledgeInThePacificSerie = new Reference().withReferenced(eugeneSledge).withReferencer(thePacific);
+			Reference robertLeckieInThePacificSerie = new Reference().withReferenced(robertLeckie).withReferencer(thePacific);
+			Reference austinShofnerInThePacificSerie = new Reference().withReferenced(austinShofner).withReferencer(thePacific);
+			Reference vernonMicheelInThePacificSerie = new Reference().withReferenced(vernonMicheel).withReferencer(thePacific);
+
+			// Persist references in the database
+			List<Reference> references = List.of(
+					williamWallaceInBraveheart,
+					williamWallaceInOutlawKing,
+					robertTheBruceInRobertTheBruce,
+					robertTheBruceInOutlawKing,
+					eugeneSledgeInThePacificSerie,
+					robertLeckieInThePacificSerie,
+					austinShofnerInThePacificSerie,
+					vernonMicheelInThePacificSerie
+			);
 			referenceRepository.saveAll(references);
 			references.forEach(reference -> {
 				log.debug("Inserting references... " + reference);

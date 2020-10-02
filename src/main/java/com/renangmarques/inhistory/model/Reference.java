@@ -19,10 +19,10 @@ public class Reference {
 
     @JsonIgnoreProperties({"referencedIn"})
     @StartNode
-    private Person person;
+    private Referenced referenced;
 
     @JsonIgnoreProperties({"referencedPeople"})
     @EndNode
-    private Movie movie;
+    private Referencer referencer;
 
 }
