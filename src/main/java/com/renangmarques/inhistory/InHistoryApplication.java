@@ -43,11 +43,14 @@ public class InHistoryApplication {
 			Referencer outlawKing = new Movie().withTitle("Outlaw King");
 			Referencer robertTheBruceMovie = new Movie().withTitle("Robert the Bruce");
 
-			Reference williamWallaceInBraveheart = new Reference().withReferenced(williamWallace).withReferencer(braveheart);
-			Reference williamWallaceInOutlawKing = new Reference().withReferenced(williamWallace).withReferencer(outlawKing);
-			Reference robertTheBruceInRobertTheBruce = new Reference().withReferenced(robertTheBruce)
-					.withReferencer(robertTheBruceMovie);
-			Reference robertTheBruceInOutlawKing = new Reference().withReferenced(robertTheBruce).withReferencer(outlawKing);
+			Reference williamWallaceInBraveheart =
+					new Reference().withReferenced(williamWallace).withReferencer(braveheart);
+			Reference williamWallaceInOutlawKing =
+					new Reference().withReferenced(williamWallace).withReferencer(outlawKing);
+			Reference robertTheBruceInRobertTheBruce =
+					new Reference().withReferenced(robertTheBruce).withReferencer(robertTheBruceMovie);
+			Reference robertTheBruceInOutlawKing =
+					new Reference().withReferenced(robertTheBruce).withReferencer(outlawKing);
 
 			// World War II references
 			Referenced eugeneSledge = new Person().withName("Eugene Sledge");
@@ -55,12 +58,23 @@ public class InHistoryApplication {
 			Referenced austinShofner = new Person().withName("Austin Shofner");
 			Referenced vernonMicheel = new Person().withName("Vernon Micheel");
 
-			Referencer thePacific = new Serie().withTitle("The Pacific");
+			Referencer thePacificSerie = new Serie().withTitle("The Pacific");
 
-			Reference eugeneSledgeInThePacificSerie = new Reference().withReferenced(eugeneSledge).withReferencer(thePacific);
-			Reference robertLeckieInThePacificSerie = new Reference().withReferenced(robertLeckie).withReferencer(thePacific);
-			Reference austinShofnerInThePacificSerie = new Reference().withReferenced(austinShofner).withReferencer(thePacific);
-			Reference vernonMicheelInThePacificSerie = new Reference().withReferenced(vernonMicheel).withReferencer(thePacific);
+			Reference eugeneSledgeInThePacificSerie =
+					new Reference().withReferenced(eugeneSledge).withReferencer(thePacificSerie);
+			Reference robertLeckieInThePacificSerie =
+					new Reference().withReferenced(robertLeckie).withReferencer(thePacificSerie);
+			Reference austinShofnerInThePacificSerie =
+					new Reference().withReferenced(austinShofner).withReferencer(thePacificSerie);
+			Reference vernonMicheelInThePacificSerie =
+					new Reference().withReferenced(vernonMicheel).withReferencer(thePacificSerie);
+
+			Referencer thePacificBook = new Book().withTitle("The Pacific");
+
+			Reference eugeneSledgeInThePacificBook =
+					new Reference().withReferenced(eugeneSledge).withReferencer(thePacificBook);
+			Reference robertLeckieInThePacificBook =
+					new Reference().withReferenced(robertLeckie).withReferencer(thePacificBook);
 
 			// Persist references in the database
 			List<Reference> references = List.of(
@@ -71,7 +85,9 @@ public class InHistoryApplication {
 					eugeneSledgeInThePacificSerie,
 					robertLeckieInThePacificSerie,
 					austinShofnerInThePacificSerie,
-					vernonMicheelInThePacificSerie
+					vernonMicheelInThePacificSerie,
+					eugeneSledgeInThePacificBook,
+					robertLeckieInThePacificBook
 			);
 			referenceRepository.saveAll(references);
 			references.forEach(reference -> {

@@ -1,8 +1,7 @@
 package com.renangmarques.inhistory.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.renangmarques.inhistory.model.Movie;
-import com.renangmarques.inhistory.service.MovieService;
+import com.renangmarques.inhistory.model.Referenced;
+import com.renangmarques.inhistory.service.ReferencedService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +13,14 @@ import java.util.Collection;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "/movies")
-public class MovieController {
+@RequestMapping(path = "/referenceds")
+public class ReferencedController {
 
-    private final MovieService movieService;
+    private final ReferencedService referencedService;
 
     @GetMapping("/all")
-    public Collection<Movie> findAll() {
-        return movieService.findAll();
+    public Collection<Referenced> findAll() {
+        return referencedService.findAll();
     }
 
 }

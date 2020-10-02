@@ -1,10 +1,10 @@
 package com.renangmarques.inhistory.model;
 
-public class Movie extends Referencer {
+public class Book extends Referencer {
 
     @Override
     public String getType() {
-        return "movie";
+        return "book";
     }
 
 }
