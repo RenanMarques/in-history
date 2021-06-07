@@ -20,4 +20,7 @@ public class PersonService {
         return Lists.newArrayList(personRepository.findAll());
     }
 
+    public Person save(Person person) {
+        return personRepository.save(person);
+    }
 }

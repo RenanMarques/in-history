@@ -20,4 +20,8 @@ public class MovieService {
         return Lists.newArrayList(movieRepository.findAll());
     }
 
+    public Movie save(Movie movie) {
+        return movieRepository.save(movie);
+    }
+
 }

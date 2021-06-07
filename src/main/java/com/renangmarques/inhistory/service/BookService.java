@@ -20,4 +20,8 @@ public class BookService {
         return Lists.newArrayList(bookRepository.findAll());
     }
 
+    public Book save(Book book) {
+        return bookRepository.save(book);
+    }
+
 }

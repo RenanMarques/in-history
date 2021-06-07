@@ -20,4 +20,8 @@ public class SerieService {
         return Lists.newArrayList(serieRepository.findAll());
     }
 
+    public Serie save(Serie serie) {
+        return serieRepository.save(serie);
+    }
+
 }

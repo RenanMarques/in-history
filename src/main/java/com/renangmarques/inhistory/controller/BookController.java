@@ -4,9 +4,7 @@ import com.renangmarques.inhistory.model.Book;
 import com.renangmarques.inhistory.service.BookService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -21,6 +19,11 @@ public class BookController {
     @GetMapping("/all")
     public Collection<Book> findAll() {
         return bookService.findAll();
+    }
+
+    @PostMapping("/save")
+    public Book save(@RequestBody Book book) {
+        return bookService.save(book);
     }
 
 }

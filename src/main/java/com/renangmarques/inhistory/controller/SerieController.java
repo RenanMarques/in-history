@@ -4,9 +4,7 @@ import com.renangmarques.inhistory.model.Serie;
 import com.renangmarques.inhistory.service.SerieService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -21,6 +19,11 @@ public class SerieController {
     @GetMapping("/all")
     public Collection<Serie> findAll() {
         return serieService.findAll();
+    }
+
+    @PostMapping("/save")
+    public Serie save(@RequestBody Serie serie) {
+        return serieService.save(serie);
     }
 
 }
