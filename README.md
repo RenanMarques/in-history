@@ -1,3 +1,5 @@
+![Logo](http://francky.me/images/quora001.png)
+
 # InHistory
 
 InHistory is a web catalog for references to historical content in movies, books and other media.
